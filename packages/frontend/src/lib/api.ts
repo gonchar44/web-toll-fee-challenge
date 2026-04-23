@@ -19,34 +19,26 @@
  *   GET    /api/meta/vehicle-types  → list available vehicle types
  */
 
-import {
-  ApiListResponse,
-  CreatePassagePayload,
-  Passage,
-  VehicleTypeOption
-} from "@/types";
+import { ApiListResponse, CreatePassagePayload, Passage, VehicleTypeOption } from "@/types";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000";
 
 export async function fetchPassages(): Promise<Passage[]> {
-  // TODO: Implement — GET /api/passages
-  throw new Error("fetchPassages not implemented");
+    // TODO: Implement — GET /api/passages
+    throw new Error("fetchPassages not implemented");
 }
 
 export async function fetchVehicleTypes(): Promise<VehicleTypeOption[]> {
-  // TODO: Implement — GET /api/meta/vehicle-types
-  throw new Error("fetchVehicleTypes not implemented");
+    // TODO: Implement — GET /api/meta/vehicle-types
+    throw new Error("fetchVehicleTypes not implemented");
 }
 
-export async function createPassage(
-  payload: CreatePassagePayload
-): Promise<void> {
-  // TODO: Implement — POST /api/passages
-  throw new Error("createPassage not implemented");
+export async function createPassage(payload: CreatePassagePayload): Promise<void> {
+    // TODO: Implement — POST /api/passages
+    throw new Error("createPassage not implemented");
 }
 
 export async function deletePassage(id: string): Promise<void> {
-  // TODO: Implement — DELETE /api/passages/:id
-  throw new Error("deletePassage not implemented");
+    // TODO: Implement — DELETE /api/passages/:id
+    throw new Error("deletePassage not implemented");
 }
