@@ -14,7 +14,6 @@
     "build:frontend": "pnpm --filter toll-fee-frontend run build",
     "test": "pnpm -r run test",
     "test:backend": "pnpm --filter toll-fee-backend run test",
-    "test:frontend": "pnpm --filter toll-fee-frontend exec echo \"No frontend tests configured\"",
-    "lint": "pnpm --filter toll-fee-frontend run lint"
+    "test:frontend": "pnpm --filter toll-fee-frontend exec echo \"No frontend tests configured\""
   }
 }
