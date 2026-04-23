@@ -9,6 +9,7 @@ import {
   calculateCharges,
   getBaseFee
 } from "../services/tollCalculator";
+import { parseOffsetMinutes } from "../utils/datetime";
 import {
   PassageResponse,
   VEHICLE_TYPES,
@@ -34,10 +35,11 @@ passagesRouter.get("/", (_req, res) => {
   const response: PassageResponse[] = passages.map((passage) => {
     const charge = charges.get(passage.id);
     const date = new Date(passage.timestamp);
+    const offsetMinutes = parseOffsetMinutes(passage.timestamp);
 
     return {
       ...passage,
-      baseFee: charge?.baseFee ?? getBaseFee(date, passage.vehicleType),
+      baseFee: charge?.baseFee ?? getBaseFee(date, passage.vehicleType, offsetMinutes),
       chargedFee: charge?.chargedFee ?? 0,
       dailyTotal: charge?.dailyTotal ?? 0
     };
@@ -57,10 +59,11 @@ passagesRouter.post("/", (req, res) => {
   const charges = calculateCharges(listPassages());
   const charge = charges.get(passage.id);
   const date = new Date(passage.timestamp);
+  const offsetMinutes = parseOffsetMinutes(passage.timestamp);
 
   const response: PassageResponse = {
     ...passage,
-    baseFee: charge?.baseFee ?? getBaseFee(date, passage.vehicleType),
+    baseFee: charge?.baseFee ?? getBaseFee(date, passage.vehicleType, offsetMinutes),
     chargedFee: charge?.chargedFee ?? 0,
     dailyTotal: charge?.dailyTotal ?? 0
   };

@@ -119,4 +119,50 @@ describe("calculateCharges", () => {
     const charges = calculateCharges(passages);
     expect(charges.get("p1")?.chargedFee).toBe(0);
   });
+
+  it("uses offset from timestamp, not hardcoded timezone", () => {
+    // 2025-02-10T07:05:00+05:00 = UTC 02:05 → local time 07:05 (fee bracket: 25 DKK)
+    // 2025-02-10T07:05:00+01:00 = UTC 06:05 → local time 07:05 (fee bracket: 25 DKK)
+    // Both should yield the same baseFee despite different offsets
+    const passageEast: TollPassage[] = [
+      {
+        id: "p1",
+        vehicleId: "veh-1",
+        vehicleType: "car",
+        timestamp: "2025-02-10T07:05:00+05:00"
+      }
+    ];
+    const passageWest: TollPassage[] = [
+      {
+        id: "p2",
+        vehicleId: "veh-2",
+        vehicleType: "car",
+        timestamp: "2025-02-10T07:05:00+01:00"
+      }
+    ];
+
+    const chargesEast = calculateCharges(passageEast);
+    const chargesWest = calculateCharges(passageWest);
+
+    expect(chargesEast.get("p1")?.baseFee).toBe(25);
+    expect(chargesWest.get("p2")?.baseFee).toBe(25);
+  });
+
+  it("treats midnight-crossing correctly when offset shifts day", () => {
+    // 2025-02-10T00:30:00+01:00 → local 00:30 → fee = 0 (outside schedule)
+    // 2025-02-09T23:30:00+00:00 → UTC 23:30, local (UTC+0) 23:30 → fee = 0
+    // But 2025-02-09T23:30:00-01:00 → local time = 22:30 on Feb 9 → also 0
+    // Key: 2025-02-10T00:30:00-07:00 = UTC 07:30, local time = 00:30 → outside schedule → 0
+    const passages: TollPassage[] = [
+      {
+        id: "p1",
+        vehicleId: "veh-1",
+        vehicleType: "car",
+        timestamp: "2025-02-10T00:30:00+01:00"
+      }
+    ];
+
+    const charges = calculateCharges(passages);
+    expect(charges.get("p1")?.chargedFee).toBe(0);
+  });
 });

@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
 import { TollPassage, VehicleType } from "../types";
+import { parseOffsetMinutes, getLocalDateKey } from "../utils/datetime";
 
 export interface CreatePassageInput {
   vehicleId: string;
@@ -46,14 +47,10 @@ export function listPassagesByVehicleAndDate(
   return passages.filter(
     (passage) =>
       passage.vehicleId === vehicleId &&
-      getDateKey(new Date(passage.timestamp)) === dateKey
+      getLocalDateKey(
+        new Date(passage.timestamp),
+        parseOffsetMinutes(passage.timestamp)
+      ) === dateKey
   );
 }
 
-function getDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = `${date.getMonth() + 1}`.padStart(2, "0");
-  const day = `${date.getDate()}`.padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-}
