@@ -38,7 +38,10 @@ describe("getKnownVehicles", () => {
 
     it("marks vehicles as toll-free when their vehicle type is toll-free", () => {
         const knownVehicles = getKnownVehicles(
-            [passage({ vehicleId: "BUS123", vehicleType: "bus" }), passage({ vehicleId: "CAR123", vehicleType: "car" })],
+            [
+                passage({ vehicleId: "BUS123", vehicleType: "bus" }),
+                passage({ vehicleId: "CAR123", vehicleType: "car" }),
+            ],
             [vehicleType({ vehicleType: "bus", tollFree: true }), vehicleType({ vehicleType: "car", tollFree: false })],
         );
 

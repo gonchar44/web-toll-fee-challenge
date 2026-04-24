@@ -23,7 +23,11 @@ describe("groupPassages", () => {
         ]);
 
         expect(groups).toHaveLength(3);
-        expect(groups.map((group) => group.key)).toEqual(["ABC123__2024-01-16", "ABC123__2024-01-15", "XYZ789__2024-01-15"]);
+        expect(groups.map((group) => group.key)).toEqual([
+            "ABC123__2024-01-16",
+            "ABC123__2024-01-15",
+            "XYZ789__2024-01-15",
+        ]);
         expect(groups.find((group) => group.key === "ABC123__2024-01-15")?.passages.map((item) => item.id)).toEqual([
             "same-vehicle-day-1",
             "same-vehicle-day-2",
