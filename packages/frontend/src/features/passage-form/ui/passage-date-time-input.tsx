@@ -5,6 +5,11 @@ import "flatpickr/dist/flatpickr.min.css";
 import cx from "clsx";
 import styles from "./passage-date-time-input.module.css";
 
+function formatLocalDateTime(date: Date): string {
+    const p = (n: number) => String(n).padStart(2, "0");
+    return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())}T${p(date.getHours())}:${p(date.getMinutes())}:${p(date.getSeconds())}`;
+}
+
 interface PassageDateTimeInputProps {
     value: string;
     onChange: (value: string) => void;
@@ -26,7 +31,7 @@ export function PassageDateTimeInput({ value, onChange, disabled, error }: Passa
                 }}
                 onChange={([date]) => {
                     if (!date) return;
-                    onChange(date.toISOString());
+                    onChange(formatLocalDateTime(date));
                 }}
                 render={({ value: _v, render: _r, ...props }, ref) => (
                     <input
