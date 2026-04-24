@@ -1,7 +1,7 @@
 import type { VehicleTypeOption } from "@/types";
 import { Select } from "@/shared/ui/select/select";
 import type { DropdownOption } from "@/shared/ui/select/select.types";
-import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "../lib/vehicle-type-icons";
+import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "@/shared/lib/vehicle-type-icons";
 
 interface VehicleTypeSelectProps {
     value: string;
