@@ -1,7 +1,7 @@
 import {
   PassageCharge,
-  TollPassage,
   TOLL_FREE_VEHICLE_TYPES,
+  TollPassage,
   VehicleType,
 } from "../types";
 import {
@@ -9,6 +9,7 @@ import {
   getMinutesSinceMidnight,
   isHoliday,
   isWeekend,
+  parseOffsetMinutes,
 } from "../utils/datetime";
 
 const DAILY_CAP = 120;
@@ -42,22 +43,30 @@ export function isTollFreeVehicle(vehicleType: VehicleType): boolean {
   return TOLL_FREE_VEHICLE_TYPES.includes(vehicleType);
 }
 
-export function getBaseFee(date: Date, vehicleType: VehicleType): number {
-  if (isTollFreeVehicle(vehicleType) || isWeekend(date) || isHoliday(date)) {
+export function getBaseFee(
+  date: Date,
+  vehicleType: VehicleType,
+  offsetMinutes: number,
+): number {
+  if (
+    isTollFreeVehicle(vehicleType) ||
+    isWeekend(date, offsetMinutes) ||
+    isHoliday(date, offsetMinutes)
+  ) {
     return 0;
   }
 
-  const minutes = getMinutesSinceMidnight(date);
+  const minutes = getMinutesSinceMidnight(date, offsetMinutes);
   const feeTimeInterval = FEE_SCHEDULE.find(
     ({ startMinute, endMinute }) =>
-      minutes >= startMinute && minutes <= endMinute
+      minutes >= startMinute && minutes <= endMinute,
   );
 
   return feeTimeInterval?.fee ?? 0;
 }
 
 export function calculateCharges(
-  passages: TollPassage[]
+  passages: TollPassage[],
 ): Map<string, PassageCharge> {
   const results = new Map<string, PassageCharge>();
 
@@ -67,8 +76,9 @@ export function calculateCharges(
       throw new Error(`Invalid timestamp for passage ${passage.id}`);
     }
 
-    const key = `${passage.vehicleId}__${getLocalDateKey(date)}`;
-    const baseFee = getBaseFee(date, passage.vehicleType);
+    const offsetMinutes = parseOffsetMinutes(passage.timestamp);
+    const key = `${passage.vehicleId}__${getLocalDateKey(date, offsetMinutes)}`;
+    const baseFee = getBaseFee(date, passage.vehicleType, offsetMinutes);
     const meta: PassageWithMeta = { passage, baseFee, date };
 
     if (!acc.has(key)) {
@@ -108,8 +118,7 @@ export function calculateCharges(
         return max;
       });
 
-      const baseFee = targetWindow.baseFee;
-      let chargedFee = baseFee;
+      let chargedFee = targetWindow.baseFee;
 
       if (dailyRunningTotal >= DAILY_CAP) {
         chargedFee = 0;

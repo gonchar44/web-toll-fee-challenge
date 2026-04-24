@@ -1,12 +1,3 @@
-const TIME_ZONE = "Europe/Copenhagen";
-
-const dateFormatter = new Intl.DateTimeFormat("da-DK", {
-  timeZone: TIME_ZONE,
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-});
-
 const HOLIDAYS_BY_YEAR: Record<number, string[]> = {
   2024: [
     "01-01",
@@ -36,21 +27,36 @@ const HOLIDAYS_BY_YEAR: Record<number, string[]> = {
   ],
 };
 
-export function getLocalDateKey(date: Date): string {
-  return dateFormatter.format(date);
+export function parseOffsetMinutes(timestamp: string): number {
+  const match = timestamp.match(/([+-])(\d{2}):(\d{2})$/);
+  if (!match) return 0;
+  const sign = match[1] === "+" ? 1 : -1;
+  return sign * (parseInt(match[2], 10) * 60 + parseInt(match[3], 10));
 }
 
-export function isWeekend(date: Date): boolean {
-  const zoned = toTimeZone(date);
-  const day = zoned.getDay();
+function applyOffset(date: Date, offsetMinutes: number): Date {
+  return new Date(date.getTime() + offsetMinutes * 60 * 1000);
+}
+
+export function getLocalDateKey(date: Date, offsetMinutes: number): string {
+  const local = applyOffset(date, offsetMinutes);
+  const year = local.getUTCFullYear();
+  const month = `${local.getUTCMonth() + 1}`.padStart(2, "0");
+  const day = `${local.getUTCDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function isWeekend(date: Date, offsetMinutes: number): boolean {
+  const local = applyOffset(date, offsetMinutes);
+  const day = local.getUTCDay();
   return day === 0 || day === 6;
 }
 
-export function isHoliday(date: Date): boolean {
-  const zoned = toTimeZone(date);
-  const year = zoned.getFullYear();
-  const month = `${zoned.getMonth() + 1}`.padStart(2, "0");
-  const day = `${zoned.getDate()}`.padStart(2, "0");
+export function isHoliday(date: Date, offsetMinutes: number): boolean {
+  const local = applyOffset(date, offsetMinutes);
+  const year = local.getUTCFullYear();
+  const month = `${local.getUTCMonth() + 1}`.padStart(2, "0");
+  const day = `${local.getUTCDate()}`.padStart(2, "0");
   const key = `${month}-${day}`;
   const holidays = HOLIDAYS_BY_YEAR[year];
   if (!holidays) {
@@ -60,12 +66,10 @@ export function isHoliday(date: Date): boolean {
   return holidays.includes(key);
 }
 
-export function getMinutesSinceMidnight(date: Date): number {
-  const zoned = toTimeZone(date);
-  return zoned.getHours() * 60 + zoned.getMinutes();
-}
-
-function toTimeZone(date: Date): Date {
-  const locale = date.toLocaleString("en-US", { timeZone: TIME_ZONE });
-  return new Date(locale);
+export function getMinutesSinceMidnight(
+  date: Date,
+  offsetMinutes: number
+): number {
+  const local = applyOffset(date, offsetMinutes);
+  return local.getUTCHours() * 60 + local.getUTCMinutes();
 }
