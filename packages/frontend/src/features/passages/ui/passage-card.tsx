@@ -1,6 +1,5 @@
-import cx from "clsx";
 import type { Passage } from "@/types";
-import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "@/shared/lib/vehicle-type-icons";
+import { VEHICLE_TYPE_FALLBACK_ICON, VEHICLE_TYPE_ICON } from "@/shared/lib/vehicle-type-icons";
 import { formatPassageDateTime } from "../lib/format-date";
 import { FeeItem } from "./fee-item";
 import styles from "./passage-card.module.css";
