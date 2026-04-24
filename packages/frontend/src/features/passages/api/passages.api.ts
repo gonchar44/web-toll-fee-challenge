@@ -1,4 +1,4 @@
-import { CreatePassagePayload, Passage } from "@/types";
+import { ApiListResponse, CreatePassagePayload, Passage } from "@/types";
 import { apiDelete, apiGetList, apiPost } from "@/lib/api/http-client";
 
 const PASSAGES_ENDPOINT = "/api/passages";
@@ -7,8 +7,9 @@ export function fetchPassages(): Promise<Passage[]> {
     return apiGetList<Passage[]>(PASSAGES_ENDPOINT);
 }
 
-export function createPassage(payload: CreatePassagePayload): Promise<void> {
-    return apiPost(PASSAGES_ENDPOINT, payload);
+export async function createPassage(payload: CreatePassagePayload): Promise<Passage> {
+    const raw = await apiPost<CreatePassagePayload, ApiListResponse<Passage>>(PASSAGES_ENDPOINT, payload);
+    return raw.data;
 }
 
 export function deletePassage(id: string): Promise<void> {
