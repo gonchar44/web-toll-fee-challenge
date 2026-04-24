@@ -12,17 +12,17 @@ interface VehicleTypeSelectProps {
 
 export function VehicleTypeSelect({ value, onChange, options, disabled }: VehicleTypeSelectProps) {
     return (
-        <div className={cx("select is-fullwidth", styles.selectWrapper, { [styles.autoFilled]: disabled && value, [styles.isDisabled]: disabled })}>
-            <select
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                disabled={disabled}
-            >
+        <div
+            className={cx("select is-fullwidth", styles.selectWrapper, {
+                [styles.autoFilled]: disabled && value,
+                [styles.isDisabled]: disabled,
+            })}
+        >
+            <select value={value} onChange={(e) => onChange(e.target.value)} disabled={disabled}>
                 <option value="">Select vehicle type</option>
                 {options.map((opt) => (
                     <option key={opt.vehicleType} value={opt.vehicleType}>
-                        {VEHICLE_TYPE_ICON[opt.vehicleType] ?? VEHICLE_TYPE_FALLBACK_ICON}{" "}
-                        {opt.vehicleType}
+                        {VEHICLE_TYPE_ICON[opt.vehicleType] ?? VEHICLE_TYPE_FALLBACK_ICON} {opt.vehicleType}
                         {opt.tollFree ? " · toll-free" : ""}
                     </option>
                 ))}
