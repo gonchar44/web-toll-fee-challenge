@@ -36,11 +36,7 @@ export const PassageGroupCard = ({ group }: PassageGroupCardProps) => {
 
     const isDeleting = mutation.isPending;
     const count = group.passages.length;
-    const expandLabel = expanded
-        ? "Hide"
-        : count === 1
-          ? "Show 1 passage"
-          : `Show all ${count} passages`;
+    const expandLabel = expanded ? "Hide" : count === 1 ? "Show 1 passage" : `Show all ${count} passages`;
 
     const expandFooter = (
         <>
@@ -117,11 +113,5 @@ export const PassageGroupCard = ({ group }: PassageGroupCardProps) => {
         </>
     );
 
-    return (
-        <PassageCard
-            passage={group.latest}
-            labels={count > 1 ? GROUP_LABELS : undefined}
-            footer={expandFooter}
-        />
-    );
+    return <PassageCard passage={group.latest} labels={count > 1 ? GROUP_LABELS : undefined} footer={expandFooter} />;
 };
