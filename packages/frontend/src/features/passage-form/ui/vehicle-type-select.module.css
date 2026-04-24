@@ -1,0 +1,4 @@
+.autoFilled select {
+    opacity: 0.75;
+    cursor: not-allowed;
+}

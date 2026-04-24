@@ -2,19 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import cx from "clsx";
+import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "../lib/vehicle-type-icons";
 import type { KnownVehicle } from "../model/passage-form.types";
 import styles from "./vehicle-id-input.module.css";
-
-const VEHICLE_TYPE_ICON: Record<string, string> = {
-    car: "🚗",
-    motorbike: "🏍️",
-    military: "🪖",
-    emergency: "🚑",
-    tractor: "🚜",
-    diplomat: "🎩",
-    bus: "🚌",
-    foreign: "🌍",
-};
 
 interface VehicleIdInputProps {
     value: string;
@@ -154,7 +144,7 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                         >
                             <div className="is-flex is-align-items-center is-justify-content-space-between">
                                 <div className={cx("is-flex is-align-items-center", styles.vehicleItemLeft)}>
-                                    <span>{VEHICLE_TYPE_ICON[vehicle.vehicleType] ?? "🚘"}</span>
+                                    <span>{VEHICLE_TYPE_ICON[vehicle.vehicleType] ?? VEHICLE_TYPE_FALLBACK_ICON}</span>
                                     <span className="has-text-weight-medium">{vehicle.vehicleId}</span>
                                 </div>
                                 {vehicle.isTollFree && (
