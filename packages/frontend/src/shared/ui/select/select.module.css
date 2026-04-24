@@ -98,8 +98,35 @@
 
 /* ── Search input variant ── */
 
+.inputWrapper {
+    position: relative;
+}
+
 .searchInput {
     cursor: text;
+    padding-right: 2.25em;
+}
+
+.chevronFloat {
+    position: absolute;
+    right: 0.75em;
+    top: 50%;
+    width: 0.625em;
+    height: 0.625em;
+    border: 2px solid var(--bulma-text, #363636);
+    border-top: none;
+    border-right: none;
+    transform: translateY(-50%) rotate(-45deg);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    pointer-events: none;
+}
+
+.chevronFloatOpen {
+    transform: translateY(-50%) rotate(135deg);
+}
+
+.chevronFloatDisabled {
+    border-color: var(--bulma-text-weak, #7a7a7a);
 }
 
 /* ── Dropdown panel ── */
@@ -138,11 +165,6 @@
 .option:hover,
 .optionActive {
     background-color: var(--bulma-background, #f5f5f5);
-}
-
-.optionActive {
-    background-color: var(--bulma-link, hsl(229, 53%, 53%));
-    color: #fff;
 }
 
 .optionSelected {

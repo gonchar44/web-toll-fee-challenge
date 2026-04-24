@@ -110,28 +110,34 @@ export function Select({
             aria-expanded={isOpen}
         >
             {searchable ? (
-                <input
-                    ref={inputRef}
-                    className={cx(styles.trigger, styles.searchInput, {
-                        [styles.triggerError]: !!error,
-                        [styles.triggerDisabled]: !!disabled,
-                        [styles.triggerOpen]: isOpen,
-                    })}
-                    type="text"
-                    value={isOpen ? filter : (selectedLabel ?? "")}
-                    placeholder={isOpen ? (selectedLabel ?? placeholder) : placeholder}
-                    onChange={(e) => {
-                        setFilter(e.target.value);
-                        setActiveIndex(-1);
-                    }}
-                    onFocus={open}
-                    onKeyDown={handleKeyDown}
-                    disabled={disabled}
-                    autoComplete="off"
-                    aria-autocomplete="list"
-                    aria-expanded={isOpen}
-                    aria-haspopup="listbox"
-                />
+                <div className={styles.inputWrapper}>
+                    <input
+                        ref={inputRef}
+                        className={cx(styles.trigger, styles.searchInput, {
+                            [styles.triggerError]: !!error,
+                            [styles.triggerDisabled]: !!disabled,
+                            [styles.triggerOpen]: isOpen,
+                        })}
+                        type="text"
+                        value={isOpen ? filter : (selectedLabel ?? "")}
+                        placeholder={isOpen ? (selectedLabel ?? placeholder) : placeholder}
+                        onChange={(e) => {
+                            setFilter(e.target.value);
+                            setActiveIndex(-1);
+                        }}
+                        onFocus={open}
+                        onKeyDown={handleKeyDown}
+                        disabled={disabled}
+                        autoComplete="off"
+                        aria-autocomplete="list"
+                        aria-expanded={isOpen}
+                        aria-haspopup="listbox"
+                    />
+                    <span
+                        className={cx(styles.chevronFloat, { [styles.chevronFloatOpen]: isOpen, [styles.chevronFloatDisabled]: disabled })}
+                        aria-hidden="true"
+                    />
+                </div>
             ) : (
                 <button
                     type="button"

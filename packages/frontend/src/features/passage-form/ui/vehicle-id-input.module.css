@@ -6,6 +6,36 @@
     width: 100%;
 }
 
+.inputWrapper {
+    position: relative;
+}
+
+.inputWithChevron {
+    padding-right: 2.25em !important;
+}
+
+.chevron {
+    position: absolute;
+    right: 0.75em;
+    top: 50%;
+    width: 0.625em;
+    height: 0.625em;
+    border: 2px solid var(--bulma-text, #363636);
+    border-top: none;
+    border-right: none;
+    transform: translateY(-50%) rotate(-45deg);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    pointer-events: none;
+}
+
+.chevronOpen {
+    transform: translateY(-50%) rotate(135deg);
+}
+
+.chevronDisabled {
+    border-color: var(--bulma-text-weak, #7a7a7a);
+}
+
 .vehicleItemLeft {
     gap: 0.5rem;
 }
