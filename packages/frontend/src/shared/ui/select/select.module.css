@@ -1,0 +1,182 @@
+.container {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+/* ── Trigger (button & search input) ── */
+
+.trigger {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 calc(0.75em - 1px);
+    height: 2.5em;
+    background-color: var(--bulma-input-background-color, #fff);
+    border: 1px solid var(--bulma-border, #dbdbdb);
+    border-radius: var(--bulma-radius, 4px);
+    color: var(--bulma-text, #363636);
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.trigger:focus,
+.triggerOpen {
+    border-color: var(--bulma-focus-border-color, hsl(229, 53%, 53%));
+    box-shadow: var(--bulma-focus-shadow, 0 0 0 0.125em hsla(229, 53%, 53%, 0.25));
+}
+
+.trigger:hover:not(.triggerDisabled) {
+    border-color: var(--bulma-border-hover, #b5b5b5);
+}
+
+.triggerError {
+    border-color: var(--bulma-danger, hsl(348, 86%, 61%));
+}
+
+.triggerError:focus,
+.triggerError.triggerOpen {
+    box-shadow: 0 0 0 0.125em hsla(348, 86%, 61%, 0.25);
+}
+
+.triggerDisabled {
+    background-color: var(--bulma-input-disabled-background-color, #f5f5f5);
+    border-color: var(--bulma-border, #dbdbdb);
+    color: var(--bulma-text-weak, #7a7a7a);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ── Trigger content layout ── */
+
+.triggerContent {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.placeholder {
+    color: var(--bulma-input-placeholder-color, #a0a0a0);
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ── Chevron ── */
+
+.chevron {
+    display: inline-block;
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 0.625em;
+    height: 0.625em;
+    border: 2px solid var(--bulma-text, #363636);
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg) translateY(-2px);
+    transition: transform 0.15s ease;
+    pointer-events: none;
+}
+
+.triggerDisabled .chevron {
+    border-color: var(--bulma-text-weak, #7a7a7a);
+}
+
+.chevronOpen {
+    transform: rotate(135deg) translateY(-2px);
+}
+
+/* ── Search input variant ── */
+
+.searchInput {
+    cursor: text;
+}
+
+/* ── Dropdown panel ── */
+
+.panel {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    background-color: #fff;
+    border: 1px solid var(--bulma-border, #dbdbdb);
+    border-radius: var(--bulma-radius, 4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+/* ── Options ── */
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    color: var(--bulma-text, #363636);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.option:hover,
+.optionActive {
+    background-color: var(--bulma-background, #f5f5f5);
+}
+
+.optionActive {
+    background-color: var(--bulma-link, hsl(229, 53%, 53%));
+    color: #fff;
+}
+
+.optionSelected {
+    background-color: hsla(229, 53%, 53%, 0.08);
+    font-weight: 500;
+}
+
+.optionLabel {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ── Shared: icon, badge, empty ── */
+
+.icon {
+    flex-shrink: 0;
+    font-size: 1em;
+    line-height: 1;
+}
+
+.badge {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.badgeInline {
+    flex-shrink: 0;
+}
+
+.empty {
+    padding: 0.5rem 0.75rem;
+    color: var(--bulma-text-weak, #7a7a7a);
+    font-size: 0.875rem;
+    list-style: none;
+}

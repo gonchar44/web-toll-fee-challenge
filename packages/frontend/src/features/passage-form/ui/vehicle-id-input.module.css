@@ -2,6 +2,10 @@
     display: block !important;
 }
 
+.dropdownContainer :global(.dropdown-menu) {
+    width: 100%;
+}
+
 .vehicleItemLeft {
     gap: 0.5rem;
 }
