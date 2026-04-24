@@ -1,56 +1,101 @@
-# Shape Games Web Challenge
+# Toll Fee Challenge
 
-This repository contains a technical assignment for potential hires.
+Frontend implementation for the toll fee challenge.
 
-The goal is to evaluate engineering quality and decision making, not just output speed. The exercise shall be completed by implementing a frontend that utilises the provided Node backend. It also includes a physical follow-up discussion where you present your solution and improvement/scalability thinking.
+The project is a pnpm monorepo with:
 
-See [docs/assignment.md](docs/assignment.md) for the full specification and [docs/scenarios.md](docs/scenarios.md) for test scenarios.
+- `packages/backend` - Express API
+- `packages/frontend` - Next.js frontend
+- `docs` - original assignment and test scenarios
 
-## Prerequisites
+## Requirements
 
-- **Node.js** ≥ 18
-- **pnpm** ≥ 8 (`npm install -g pnpm` if not installed)
-- **NextJS** Implement using NextJS together with
-- **React** 
+- Node.js >= 18
+- pnpm >= 8
 
-## Getting Started
+## Installation
 
 ```bash
-# Install all dependencies (backend + frontend)
 pnpm install
+```
 
-# Start both backend and frontend in parallel
+## Running the Project
+
+Start backend and frontend together:
+
+```bash
 pnpm dev
 ```
 
-This runs:
+Services:
 
-- **Backend** at [http://localhost:4000](http://localhost:4000)
-- **Frontend** at [http://localhost:3000](http://localhost:3000)
+- Backend: http://localhost:4000
+- Frontend: http://localhost:3000
 
-You can also start them individually:
-
-```bash
-pnpm dev:backend   # backend only
-pnpm dev:frontend  # frontend only
-```
-
-## Running Tests
+Run services separately:
 
 ```bash
-pnpm test            # run all tests
-pnpm test:backend    # backend tests only (vitest)
+pnpm dev:backend
+pnpm dev:frontend
 ```
+
+## Build
+
+Build all packages:
+
+```bash
+pnpm build
+```
+
+Build packages separately:
+
+```bash
+pnpm build:backend
+pnpm build:frontend
+```
+
+## Tests
+
+Run all configured tests:
+
+```bash
+pnpm test
+```
+
+Backend tests:
+
+```bash
+pnpm test:backend
+```
+
+Frontend tests are not configured.
+
+## Frontend Code Quality
+
+ESLint and Prettier are configured only for the frontend package.
+
+```bash
+pnpm --filter toll-fee-frontend lint
+pnpm --filter toll-fee-frontend lint:fix
+pnpm --filter toll-fee-frontend format:check
+pnpm --filter toll-fee-frontend format:fix
+```
+
+They were not added to the backend package because the work was focused on the frontend. The backend was only touched for one small fix required by the implementation.
 
 ## Project Structure
 
-```
+```text
 packages/
-  backend/    # Express API — provided, ready to use
-  frontend/   # Next.js app — your implementation goes here
+  backend/     Express API
+  frontend/    Next.js application
+
 docs/
-  assignment.md   # Full specification
-  scenarios.md    # Test scenarios with expected results
+  assignment.md    Original task description
+  scenarios.md     Original test scenarios
 ```
 
-Run `pnpm help` for a full list of available workspace commands.
+## Original Assignment Documents
+
+- [Assignment](docs/assignment.md)
+- [Scenarios](docs/scenarios.md)
