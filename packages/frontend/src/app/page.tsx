@@ -1,4 +1,4 @@
-"use client";
+import { PassageForm } from "@/features/passage-form/ui/passage-form";
 
 export default function HomePage() {
     return (
@@ -12,7 +12,9 @@ export default function HomePage() {
                     </p>
                 </div>
 
-                {/* TODO: Build your solution here */}
+                <div className="columns">
+                    <PassageForm />
+                </div>
             </div>
         </main>
     );
