@@ -1,9 +1,5 @@
-.dropdownTrigger {
-    width: 100%;
-}
-
-.dropdownMenu {
-    width: 100%;
+.dropdownContainer {
+    display: block !important;
 }
 
 .vehicleItemLeft {

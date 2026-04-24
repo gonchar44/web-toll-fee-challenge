@@ -102,9 +102,8 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
     const showNoMatch = !showEmptyState && filteredVehicles.length === 0 && !isNewVehicle && trimmedValue.length > 0;
 
     return (
-        <div ref={containerRef} className={cx("dropdown is-fullwidth", { "is-active": isOpen })}>
-            <div className={cx("dropdown-trigger", styles.dropdownTrigger)}>
-                <input
+        <div ref={containerRef} className={cx("dropdown is-fullwidth", styles.dropdownContainer, { "is-active": isOpen })}>
+            <input
                     className="input"
                     type="text"
                     placeholder="e.g. ABC123"
@@ -118,9 +117,8 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                     aria-expanded={isOpen}
                     aria-haspopup="listbox"
                 />
-            </div>
 
-            <div className={cx("dropdown-menu", styles.dropdownMenu)} role="listbox">
+            <div className="dropdown-menu" role="listbox">
                 <div className="dropdown-content">
                     {showEmptyState && (
                         <div className="dropdown-item">

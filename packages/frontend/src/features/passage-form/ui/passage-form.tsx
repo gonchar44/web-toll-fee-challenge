@@ -13,7 +13,6 @@ import { useKnownVehicles } from "../hooks/use-known-vehicles";
 import { passageFormSchema, type PassageFormValues } from "../model/passage-form.schema";
 import { createPassage } from "@/features/passages/api/passages.api";
 import { fetchVehicleTypes } from "@/features/vehicle-types/api/vehicle-types.api";
-import styles from "./passage-form.module.css";
 
 export function PassageForm() {
     const queryClient = useQueryClient();
@@ -50,7 +49,7 @@ export function PassageForm() {
     const isPending = isSubmitting || mutation.isPending;
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="column is-3">
             <div className="field">
                 <label className="label">License plate / Vehicle ID</label>
                 <div className="control">

@@ -12,7 +12,7 @@ interface VehicleTypeSelectProps {
 
 export function VehicleTypeSelect({ value, onChange, options, disabled }: VehicleTypeSelectProps) {
     return (
-        <div className={cx("select is-fullwidth", { [styles.autoFilled]: disabled && value })}>
+        <div className={cx("select is-fullwidth", styles.selectWrapper, { [styles.autoFilled]: disabled && value, [styles.isDisabled]: disabled })}>
             <select
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
