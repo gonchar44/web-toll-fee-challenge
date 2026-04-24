@@ -2,19 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import cx from "clsx";
+import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "../lib/vehicle-type-icons";
 import type { KnownVehicle } from "../model/passage-form.types";
 import styles from "./vehicle-id-input.module.css";
-
-const VEHICLE_TYPE_ICON: Record<string, string> = {
-    car: "🚗",
-    motorbike: "🏍️",
-    military: "🪖",
-    emergency: "🚑",
-    tractor: "🚜",
-    diplomat: "🎩",
-    bus: "🚌",
-    foreign: "🌍",
-};
 
 interface VehicleIdInputProps {
     value: string;
@@ -112,25 +102,26 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
     const showNoMatch = !showEmptyState && filteredVehicles.length === 0 && !isNewVehicle && trimmedValue.length > 0;
 
     return (
-        <div ref={containerRef} className={cx("dropdown is-fullwidth", { "is-active": isOpen })}>
-            <div className={cx("dropdown-trigger", styles.dropdownTrigger)}>
-                <input
-                    className="input"
-                    type="text"
-                    placeholder="e.g. ABC123"
-                    value={value}
-                    onChange={handleInputChange}
-                    onFocus={() => setIsOpen(true)}
-                    onKeyDown={handleKeyDown}
-                    disabled={disabled}
-                    autoComplete="off"
-                    aria-autocomplete="list"
-                    aria-expanded={isOpen}
-                    aria-haspopup="listbox"
-                />
-            </div>
+        <div
+            ref={containerRef}
+            className={cx("dropdown is-fullwidth", styles.dropdownContainer, { "is-active": isOpen })}
+        >
+            <input
+                className="input"
+                type="text"
+                placeholder="e.g. ABC123"
+                value={value}
+                onChange={handleInputChange}
+                onFocus={() => setIsOpen(true)}
+                onKeyDown={handleKeyDown}
+                disabled={disabled}
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-expanded={isOpen}
+                aria-haspopup="listbox"
+            />
 
-            <div className={cx("dropdown-menu", styles.dropdownMenu)} role="listbox">
+            <div className="dropdown-menu" role="listbox">
                 <div className="dropdown-content">
                     {showEmptyState && (
                         <div className="dropdown-item">
@@ -154,7 +145,7 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                         >
                             <div className="is-flex is-align-items-center is-justify-content-space-between">
                                 <div className={cx("is-flex is-align-items-center", styles.vehicleItemLeft)}>
-                                    <span>{VEHICLE_TYPE_ICON[vehicle.vehicleType] ?? "🚘"}</span>
+                                    <span>{VEHICLE_TYPE_ICON[vehicle.vehicleType] ?? VEHICLE_TYPE_FALLBACK_ICON}</span>
                                     <span className="has-text-weight-medium">{vehicle.vehicleId}</span>
                                 </div>
                                 {vehicle.isTollFree && (
