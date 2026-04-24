@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import cx from "clsx";
 import type { KnownVehicle } from "../model/passage-form.types";
 import styles from "./vehicle-id-input.module.css";
 
@@ -111,8 +112,8 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
     const showNoMatch = !showEmptyState && filteredVehicles.length === 0 && !isNewVehicle && trimmedValue.length > 0;
 
     return (
-        <div ref={containerRef} className={`dropdown is-fullwidth${isOpen ? " is-active" : ""}`}>
-            <div className={`dropdown-trigger ${styles.dropdownTrigger}`}>
+        <div ref={containerRef} className={cx("dropdown is-fullwidth", { "is-active": isOpen })}>
+            <div className={cx("dropdown-trigger", styles.dropdownTrigger)}>
                 <input
                     className="input"
                     type="text"
@@ -129,7 +130,7 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                 />
             </div>
 
-            <div className={`dropdown-menu ${styles.dropdownMenu}`} role="listbox">
+            <div className={cx("dropdown-menu", styles.dropdownMenu)} role="listbox">
                 <div className="dropdown-content">
                     {showEmptyState && (
                         <div className="dropdown-item">
@@ -142,7 +143,7 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                     {filteredVehicles.map((vehicle, index) => (
                         <a
                             key={vehicle.vehicleId}
-                            className={`dropdown-item${activeIndex === index ? " is-active" : ""}`}
+                            className={cx("dropdown-item", { "is-active": activeIndex === index })}
                             role="option"
                             aria-selected={activeIndex === index}
                             onMouseDown={(e) => {
@@ -152,7 +153,7 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                             onMouseEnter={() => setActiveIndex(index)}
                         >
                             <div className="is-flex is-align-items-center is-justify-content-space-between">
-                                <div className={`is-flex is-align-items-center ${styles.vehicleItemLeft}`}>
+                                <div className={cx("is-flex is-align-items-center", styles.vehicleItemLeft)}>
                                     <span>{VEHICLE_TYPE_ICON[vehicle.vehicleType] ?? "🚘"}</span>
                                     <span className="has-text-weight-medium">{vehicle.vehicleId}</span>
                                 </div>
@@ -167,7 +168,9 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
                         <>
                             {filteredVehicles.length > 0 && <hr className="dropdown-divider" />}
                             <a
-                                className={`dropdown-item${activeIndex === filteredVehicles.length ? " is-active" : ""}`}
+                                className={cx("dropdown-item", {
+                                    "is-active": activeIndex === filteredVehicles.length,
+                                })}
                                 role="option"
                                 aria-selected={activeIndex === filteredVehicles.length}
                                 onMouseDown={(e) => {
