@@ -6,7 +6,9 @@ import { groupPassages } from "../lib/group-passages";
 import { PassageGroupCard } from "./passage-group-card";
 import styles from "./passage-list.module.css";
 
-export function PassageList() {
+const columnClass = `column ${styles.scrollColumn}`;
+
+export const PassageList = () => {
     const {
         data: passages,
         isLoading,
@@ -18,7 +20,7 @@ export function PassageList() {
 
     if (isLoading) {
         return (
-            <div className="column">
+            <div className={columnClass}>
                 <div className={styles.list}>
                     <p className={styles.heading}>Passage History</p>
                     {[0, 1, 2].map((i) => (
@@ -31,7 +33,7 @@ export function PassageList() {
 
     if (isError) {
         return (
-            <div className="column">
+            <div className={columnClass}>
                 <div className={styles.list}>
                     <p className={styles.heading}>Passage History</p>
                     <div className={styles.empty}>
@@ -46,7 +48,7 @@ export function PassageList() {
     const groups = groupPassages(passages ?? []);
 
     return (
-        <div className="column">
+        <div className={columnClass}>
             <div className={styles.list}>
                 <p className={styles.heading}>
                     Passage History · {groups.length} group{groups.length !== 1 ? "s" : ""}
@@ -64,4 +66,4 @@ export function PassageList() {
             </div>
         </div>
     );
-}
+};

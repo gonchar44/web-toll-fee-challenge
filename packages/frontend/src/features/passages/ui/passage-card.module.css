@@ -4,11 +4,11 @@
     box-shadow:
         0 1px 4px rgba(0, 0, 0, 0.07),
         0 0 0 1px rgba(0, 0, 0, 0.04);
-    padding: 1rem 1.25rem 0.875rem;
+    overflow: hidden;
 }
 
-.cardWithFooter {
-    border-radius: 8px 8px 0 0;
+.cardBody {
+    padding: 1rem 1.25rem 1.25rem;
 }
 
 .header {
