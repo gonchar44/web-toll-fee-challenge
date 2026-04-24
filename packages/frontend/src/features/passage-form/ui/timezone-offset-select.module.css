@@ -1,0 +1,8 @@
+.container {
+    display: block !important;
+}
+
+.content {
+    max-height: 200px;
+    overflow-y: auto;
+}

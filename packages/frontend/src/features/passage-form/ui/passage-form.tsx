@@ -8,11 +8,13 @@ import cx from "clsx";
 import { VehicleIdInput } from "./vehicle-id-input";
 import { VehicleTypeSelect } from "./vehicle-type-select";
 import { PassageDateTimeInput } from "./passage-date-time-input";
+import { TimezoneOffsetSelect } from "./timezone-offset-select";
 import { FieldError } from "./field-error";
 import { useKnownVehicles } from "../hooks/use-known-vehicles";
 import { passageFormSchema, type PassageFormValues } from "../model/passage-form.schema";
 import { createPassage } from "@/features/passages/api/passages.api";
 import { fetchVehicleTypes } from "@/features/vehicle-types/api/vehicle-types.api";
+import { getBrowserTimezoneOffset } from "../lib/timezone-offsets";
 
 export function PassageForm() {
     const queryClient = useQueryClient();
@@ -33,19 +35,30 @@ export function PassageForm() {
         formState: { errors, isSubmitting },
     } = useForm<PassageFormValues>({
         resolver: zodResolver(passageFormSchema),
-        defaultValues: { vehicleId: "", vehicleType: "", timestamp: "" },
+        defaultValues: {
+            vehicleId: "",
+            vehicleType: "",
+            timestamp: "",
+            timezone: getBrowserTimezoneOffset(),
+        },
     });
 
     const mutation = useMutation({
         mutationFn: createPassage,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["passages"] });
-            reset();
+            reset({ vehicleId: "", vehicleType: "", timestamp: "", timezone: getBrowserTimezoneOffset() });
             setIsVehicleTypeAutoFilled(false);
         },
     });
 
-    const onSubmit = (values: PassageFormValues) => mutation.mutate(values);
+    const onSubmit = (values: PassageFormValues) =>
+        mutation.mutate({
+            vehicleId: values.vehicleId,
+            vehicleType: values.vehicleType,
+            timestamp: `${values.timestamp}${values.timezone}`,
+        });
+
     const isPending = isSubmitting || mutation.isPending;
 
     return (
@@ -109,6 +122,25 @@ export function PassageForm() {
                     />
                 </div>
                 <FieldError message={errors.timestamp?.message} />
+            </div>
+
+            <div className="field">
+                <label className="label">Timezone</label>
+                <div className="control">
+                    <Controller
+                        name="timezone"
+                        control={control}
+                        render={({ field }) => (
+                            <TimezoneOffsetSelect
+                                value={field.value}
+                                onChange={field.onChange}
+                                disabled={isPending}
+                                error={errors.timezone?.message}
+                            />
+                        )}
+                    />
+                </div>
+                <FieldError message={errors.timezone?.message} />
             </div>
 
             <div className="field">
