@@ -68,7 +68,13 @@ Backend tests:
 pnpm test:backend
 ```
 
-Frontend tests are not configured.
+Frontend tests:
+
+```bash
+pnpm test:frontend
+```
+
+Frontend and backend tests are both run with Vitest.
 
 ## Frontend Code Quality
 
