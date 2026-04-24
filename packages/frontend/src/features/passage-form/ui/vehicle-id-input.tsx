@@ -106,20 +106,26 @@ export function VehicleIdInput({ value, onChange, onVehicleTypeChange, knownVehi
             ref={containerRef}
             className={cx("dropdown is-fullwidth", styles.dropdownContainer, { "is-active": isOpen })}
         >
-            <input
-                className="input"
-                type="text"
-                placeholder="e.g. ABC123"
-                value={value}
-                onChange={handleInputChange}
-                onFocus={() => setIsOpen(true)}
-                onKeyDown={handleKeyDown}
-                disabled={disabled}
-                autoComplete="off"
-                aria-autocomplete="list"
-                aria-expanded={isOpen}
-                aria-haspopup="listbox"
-            />
+            <div className={styles.inputWrapper}>
+                <input
+                    className={cx("input", styles.inputWithChevron)}
+                    type="text"
+                    placeholder="e.g. ABC123"
+                    value={value}
+                    onChange={handleInputChange}
+                    onFocus={() => setIsOpen(true)}
+                    onKeyDown={handleKeyDown}
+                    disabled={disabled}
+                    autoComplete="off"
+                    aria-autocomplete="list"
+                    aria-expanded={isOpen}
+                    aria-haspopup="listbox"
+                />
+                <span
+                    className={cx(styles.chevron, { [styles.chevronOpen]: isOpen, [styles.chevronDisabled]: disabled })}
+                    aria-hidden="true"
+                />
+            </div>
 
             <div className="dropdown-menu" role="listbox">
                 <div className="dropdown-content">
