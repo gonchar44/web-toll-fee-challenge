@@ -10,8 +10,10 @@ The project is a pnpm monorepo with:
 
 ## Requirements
 
-- Node.js >= 18
+- Node.js >= 20.9 (required by Next.js 16)
 - pnpm >= 8
+
+The frontend uses Next.js 16, React 19, and TanStack Query.
 
 ## Installation
 
@@ -105,3 +107,7 @@ docs/
 
 - [Assignment](docs/assignment.md)
 - [Scenarios](docs/scenarios.md)
+
+## Submission Notes
+
+- [Implementation notes, assumptions, tradeoffs, and next steps](docs/submission-notes.md)
