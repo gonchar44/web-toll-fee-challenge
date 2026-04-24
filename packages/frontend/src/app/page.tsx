@@ -3,6 +3,7 @@ import { PassageForm } from "@/features/passage-form/ui/passage-form";
 import { PassageList } from "@/features/passages/ui/passage-list";
 import { fetchVehicleTypes } from "@/features/vehicle-types/api/vehicle-types.api";
 import { fetchPassages } from "@/features/passages/api/passages.api";
+import styles from "./page.module.css";
 
 export default async function HomePage() {
     const queryClient = new QueryClient();
@@ -13,8 +14,8 @@ export default async function HomePage() {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <main className="section">
-                <div className="container">
+            <main className={`section ${styles.main}`}>
+                <div className={`container ${styles.container}`}>
                     <div className="mb-5">
                         <h1 className="title">Toll Passage Manager</h1>
                         <p className="subtitle">
@@ -23,8 +24,9 @@ export default async function HomePage() {
                         </p>
                     </div>
 
-                    <div className="columns">
+                    <div className={`columns ${styles.columns}`}>
                         <PassageForm />
+                        <div className={styles.columnDivider} />
                         <PassageList />
                     </div>
                 </div>
