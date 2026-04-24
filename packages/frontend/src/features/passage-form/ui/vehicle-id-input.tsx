@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import cx from "clsx";
-import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "../lib/vehicle-type-icons";
+import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "@/shared/lib/vehicle-type-icons";
 import type { KnownVehicle } from "../model/passage-form.types";
 import styles from "./vehicle-id-input.module.css";
 

@@ -1,24 +1,9 @@
 import cx from "clsx";
 import type { Passage } from "@/types";
+import { VEHICLE_TYPE_ICON, VEHICLE_TYPE_FALLBACK_ICON } from "@/shared/lib/vehicle-type-icons";
 import { formatPassageDateTime } from "../lib/format-date";
+import { FeeItem } from "./fee-item";
 import styles from "./passage-card.module.css";
-
-interface FeeItemProps {
-    label: string;
-    value: number;
-}
-
-function FeeItem({ label, value }: FeeItemProps) {
-    return (
-        <div className={styles.feeItem}>
-            <span className={styles.feeLabel}>{label}</span>
-            <span className={styles.feeValue}>
-                {value}
-                <span className={styles.feeUnit}>DKK</span>
-            </span>
-        </div>
-    );
-}
 
 export interface PassageCardLabels {
     baseFee?: string;
@@ -32,12 +17,17 @@ interface PassageCardProps {
     footer?: React.ReactNode;
 }
 
-export function PassageCard({ passage, labels, footer }: PassageCardProps) {
+export const PassageCard = ({ passage, labels, footer }: PassageCardProps) => {
+    const icon = VEHICLE_TYPE_ICON[passage.vehicleType] ?? VEHICLE_TYPE_FALLBACK_ICON;
+
     return (
         <div className={cx(styles.card, { [styles.cardWithFooter]: !!footer })}>
             <div className={styles.header}>
                 <span className={styles.vehicleId}>{passage.vehicleId}</span>
-                <span className={styles.vehicleTypeBadge}>{passage.vehicleType}</span>
+                <span className={styles.vehicleTypeBadge}>
+                    <span className={styles.vehicleTypeIcon}>{icon}</span>
+                    {passage.vehicleType}
+                </span>
             </div>
             <p className={styles.timestamp}>{formatPassageDateTime(passage.timestamp)}</p>
             <div className={styles.divider} />
@@ -49,4 +39,4 @@ export function PassageCard({ passage, labels, footer }: PassageCardProps) {
             {footer}
         </div>
     );
-}
+};

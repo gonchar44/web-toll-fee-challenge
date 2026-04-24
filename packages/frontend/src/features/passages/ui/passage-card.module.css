@@ -26,6 +26,11 @@
     color: #1a1a2e;
 }
 
+.vehicleTypeIcon {
+    margin-right: 4px;
+    font-style: normal;
+}
+
 .vehicleTypeBadge {
     font-size: 0.6875rem;
     font-weight: 600;
