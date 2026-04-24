@@ -92,9 +92,7 @@ export function PassageForm() {
                 </div>
             </div>
 
-            {mutation.isError && (
-                <FieldError message="Failed to record passage. Please try again." />
-            )}
+            {mutation.isError && <FieldError message="Failed to record passage. Please try again." />}
         </form>
     );
 }
