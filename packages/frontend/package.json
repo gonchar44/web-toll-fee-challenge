@@ -11,6 +11,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
+        "test": "vitest run",
+        "test:watch": "vitest",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "format:check": "prettier --check '**/*.{js,ts,tsx,json,css,scss,md}'",
@@ -38,6 +40,7 @@
         "eslint-config-next": "^16.2.4",
         "eslint-config-prettier": "^10.1.5",
         "prettier": "^3.5.3",
-        "typescript": "^5"
+        "typescript": "^5",
+        "vitest": "^3.2.4"
     }
 }

@@ -12,6 +12,7 @@ import { TimezoneOffsetSelect } from "./timezone-offset-select";
 import { FieldError } from "./field-error";
 import { useKnownVehicles } from "../hooks/use-known-vehicles";
 import { passageFormSchema, type PassageFormValues } from "../model/passage-form.schema";
+import { createPassagePayload } from "../lib/create-passage-payload";
 import { createPassage } from "@/features/passages/api/passages.api";
 import { fetchVehicleTypes } from "@/features/vehicle-types/api/vehicle-types.api";
 import { getBrowserTimezoneOffset } from "../lib/timezone-offsets";
@@ -58,12 +59,7 @@ export function PassageForm() {
         },
     });
 
-    const onSubmit = (values: PassageFormValues) =>
-        mutation.mutate({
-            vehicleId: values.vehicleId,
-            vehicleType: values.vehicleType,
-            timestamp: `${values.timestamp}${values.timezone}`,
-        });
+    const onSubmit = (values: PassageFormValues) => mutation.mutate(createPassagePayload(values));
 
     const isPending = isSubmitting || mutation.isPending;
 
