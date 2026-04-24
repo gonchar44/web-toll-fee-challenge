@@ -24,7 +24,9 @@
     border-top: none;
     border-right: none;
     transform: translateY(-50%) rotate(-45deg);
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease;
     pointer-events: none;
 }
 

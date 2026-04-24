@@ -134,7 +134,10 @@ export function Select({
                         aria-haspopup="listbox"
                     />
                     <span
-                        className={cx(styles.chevronFloat, { [styles.chevronFloatOpen]: isOpen, [styles.chevronFloatDisabled]: disabled })}
+                        className={cx(styles.chevronFloat, {
+                            [styles.chevronFloatOpen]: isOpen,
+                            [styles.chevronFloatDisabled]: disabled,
+                        })}
                         aria-hidden="true"
                     />
                 </div>
