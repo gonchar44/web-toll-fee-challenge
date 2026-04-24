@@ -41,10 +41,7 @@ export async function apiGetList<T>(path: string): Promise<T> {
     return raw.data;
 }
 
-export async function apiPost<TBody, TResult = void>(
-    path: string,
-    body: TBody,
-): Promise<TResult> {
+export async function apiPost<TBody, TResult = void>(path: string, body: TBody): Promise<TResult> {
     const res = await fetch(`${API_BASE_URL}${path}`, {
         method: "POST",
         headers: {
