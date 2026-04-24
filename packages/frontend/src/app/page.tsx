@@ -1,13 +1,15 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { PassageForm } from "@/features/passage-form/ui/passage-form";
+import { PassageList } from "@/features/passages/ui/passage-list";
 import { fetchVehicleTypes } from "@/features/vehicle-types/api/vehicle-types.api";
+import { fetchPassages } from "@/features/passages/api/passages.api";
 
 export default async function HomePage() {
     const queryClient = new QueryClient();
-    await queryClient.prefetchQuery({
-        queryKey: ["vehicle-types"],
-        queryFn: fetchVehicleTypes,
-    });
+    await Promise.all([
+        queryClient.prefetchQuery({ queryKey: ["vehicle-types"], queryFn: fetchVehicleTypes }),
+        queryClient.prefetchQuery({ queryKey: ["passages"], queryFn: fetchPassages }),
+    ]);
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
@@ -23,6 +25,7 @@ export default async function HomePage() {
 
                     <div className="columns">
                         <PassageForm />
+                        <PassageList />
                     </div>
                 </div>
             </main>
