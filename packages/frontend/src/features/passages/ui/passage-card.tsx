@@ -32,9 +32,7 @@ export const PassageCard = ({ passage, labels, footer }: PassageCardProps) => {
                 <p className={styles.timestamp}>
                     {formatPassageDateTime(passage.timestamp)}
                     {formatPassageOffset(passage.timestamp) && (
-                        <span className={styles.timestampOffset}>
-                            {" "}({formatPassageOffset(passage.timestamp)})
-                        </span>
+                        <span className={styles.timestampOffset}> ({formatPassageOffset(passage.timestamp)})</span>
                     )}
                 </p>
                 <div className={styles.divider} />

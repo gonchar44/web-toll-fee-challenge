@@ -68,7 +68,8 @@ export const PassageGroupCard = ({ group }: PassageGroupCardProps) => {
                                     {formatPassageTime(passage.timestamp)}
                                     {formatPassageOffset(passage.timestamp) && (
                                         <span className={styles.timeOffset}>
-                                            {" "}({formatPassageOffset(passage.timestamp)})
+                                            {" "}
+                                            ({formatPassageOffset(passage.timestamp)})
                                         </span>
                                     )}
                                 </span>
