@@ -6,7 +6,7 @@ import cx from "clsx";
 import type { PassageGroup } from "../model/passage-group.types";
 import { deletePassage } from "../api/passages.api";
 import { PassageCard } from "./passage-card";
-import { formatPassageTime } from "../lib/format-date";
+import { formatPassageOffset, formatPassageTime } from "../lib/format-date";
 import styles from "./passage-group-card.module.css";
 
 const GROUP_LABELS = {
@@ -64,7 +64,15 @@ export const PassageGroupCard = ({ group }: PassageGroupCardProps) => {
 
                         return (
                             <div key={passage.id} className={styles.detailsRow}>
-                                <span className={styles.detailsCell}>{formatPassageTime(passage.timestamp)}</span>
+                                <span className={styles.detailsCell}>
+                                    {formatPassageTime(passage.timestamp)}
+                                    {formatPassageOffset(passage.timestamp) && (
+                                        <span className={styles.timeOffset}>
+                                            {" "}
+                                            ({formatPassageOffset(passage.timestamp)})
+                                        </span>
+                                    )}
+                                </span>
                                 <span className={styles.detailsCell}>
                                     {passage.baseFee}
                                     <span className={styles.detailsFeeUnit}>DKK</span>
