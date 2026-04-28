@@ -23,3 +23,10 @@ export function formatPassageDateTime(timestamp: string): string {
 export function formatPassageTime(timestamp: string): string {
     return parseTimestamp(timestamp).timeStr;
 }
+
+export function formatPassageOffset(timestamp: string): string {
+    const match = timestamp.match(/([+-]\d{2}:\d{2})$/);
+    if (match) return match[1];
+    if (timestamp.endsWith("Z")) return "+00:00";
+    return "";
+}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatPassageDateTime, formatPassageTime } from "./format-date";
+import { formatPassageDateTime, formatPassageOffset, formatPassageTime } from "./format-date";
 
 describe("formatPassageDateTime", () => {
     it("formats the local date and time from the timestamp string", () => {
@@ -13,6 +13,28 @@ describe("formatPassageDateTime", () => {
 
     it("falls back to midnight when the timestamp has no time part", () => {
         expect(formatPassageDateTime("2024-01-15")).toBe("Mon, 15 Jan 2024 · 00:00");
+    });
+});
+
+describe("formatPassageOffset", () => {
+    it("returns a positive offset", () => {
+        expect(formatPassageOffset("2024-01-15T08:30:00+02:00")).toBe("+02:00");
+    });
+
+    it("returns a negative offset", () => {
+        expect(formatPassageOffset("2024-01-15T08:30:00-05:00")).toBe("-05:00");
+    });
+
+    it("returns a fractional-hour offset", () => {
+        expect(formatPassageOffset("2024-01-15T08:30:00+05:30")).toBe("+05:30");
+    });
+
+    it("normalises UTC (Z) to +00:00", () => {
+        expect(formatPassageOffset("2024-01-15T08:30:00Z")).toBe("+00:00");
+    });
+
+    it("returns an empty string when no offset is present", () => {
+        expect(formatPassageOffset("2024-01-15")).toBe("");
     });
 });
 
