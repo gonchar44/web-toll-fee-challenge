@@ -1,6 +1,6 @@
 import type { Passage } from "@/types";
 import { VEHICLE_TYPE_FALLBACK_ICON, VEHICLE_TYPE_ICON } from "@/shared/lib/vehicle-type-icons";
-import { formatPassageDateTime } from "../lib/format-date";
+import { formatPassageDateTime, formatPassageOffset } from "../lib/format-date";
 import { FeeItem } from "./fee-item";
 import styles from "./passage-card.module.css";
 
@@ -29,7 +29,14 @@ export const PassageCard = ({ passage, labels, footer }: PassageCardProps) => {
                         {passage.vehicleType}
                     </span>
                 </div>
-                <p className={styles.timestamp}>{formatPassageDateTime(passage.timestamp)}</p>
+                <p className={styles.timestamp}>
+                    {formatPassageDateTime(passage.timestamp)}
+                    {formatPassageOffset(passage.timestamp) && (
+                        <span className={styles.timestampOffset}>
+                            {" "}({formatPassageOffset(passage.timestamp)})
+                        </span>
+                    )}
+                </p>
                 <div className={styles.divider} />
                 <div className={styles.feeGrid}>
                     <FeeItem label={labels?.baseFee ?? "Base Fee"} value={passage.baseFee} />

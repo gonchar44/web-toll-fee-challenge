@@ -51,6 +51,12 @@
     margin-bottom: 0.875rem;
 }
 
+.timestampOffset {
+    font-size: 0.7rem;
+    color: #b8b8b8;
+    letter-spacing: 0.02em;
+}
+
 .divider {
     height: 1px;
     background: #f0f0f0;
